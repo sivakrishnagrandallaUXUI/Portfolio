@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Siva Krishna Grandalla — UI/UX product designer focused on culturally-rooted design for Indian users.">
+  <title>Siva Krishna Grandalla — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Minimal floating top bar -->
+  <header class="site-header" role="banner">
+    <nav class="site-nav" aria-label="Primary">
+      <a class="site-nav__brand" href="#top">S.K.G.</a>
+      <ul class="site-nav__list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Split editorial hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__content">
+        <p class="hero__eyebrow">UI/UX Designer</p>
+        <h1 id="hero-heading" class="hero__title">Siva Krishna<br>Grandalla</h1>
+        <p class="hero__tagline">Product designer who thinks in systems and designs for people.</p>
+        <a class="hero__cta" href="#work">View selected work</a>
+      </div>
+      <div class="hero__portrait">
+        <img
+          src="assets/images/portrait.png"
+          alt="Portrait of Siva Krishna Grandalla"
+          class="hero__portrait-img"
+          width="352"
+          height="469"
+          loading="eager"
+        >
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about" aria-labelledby="about-heading">
+      <div class="section__grid">
+        <div class="section__intro">
+          <h2 id="about-heading" class="section__title">About</h2>
+        </div>
+        <div class="section__body">
+          <p class="lead">I'm a product designer who spent few months in the trenches of real product teams, and now building concept projects that solve problems I've watched real people struggle with.</p>
+          <p>My focus is culturally-rooted product design for Indian users — where generic interfaces fail and context-aware thinking wins.</p>
+          <p>I've designed across two senior designers' product teams and built concept projects that solve problems I've watched real Indian families struggle with firsthand.</p>
+          <p>Off the screen I obsess over Indian app experiences, argue about design systems nobody asked me to, and occasionally get the spacing right. Open to opportunities and always up for a good design conversation.</p>
+
+          <h3 class="subsection__title">Skills</h3>
+          <ul class="skills-list">
+            <li>Product Design</li>
+            <li>User Research</li>
+            <li>wireframing</li>
+            <li>Prototyping</li>
+            <li>Interaction Design</li>
+            <li>Information Architecture</li>
+            <li>Design Systems</li>
+            <li>Usability Testing</li>
+            <li>Product Thinking</li>
+            <li>Figma</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case studies -->
+    <section class="section work" id="work" aria-labelledby="work-heading">
+      <div class="section__intro work__intro">
+        <h2 id="work-heading" class="section__title">Selected Work</h2>
+        <p class="work__subtitle">Three projects — from NDA product work to a personal concept built for Indian event hosts.</p>
+      </div>
+
+      <!-- Case Study 1: True Communication -->
+      <article class="case-study case-study--offset-left" aria-labelledby="cs1-title">
+        <header class="case-study__header">
+          <p class="case-study__nda">Details anonymized under NDA</p>
+          <h3 id="cs1-title" class="case-study__title">True Communication</h3>
+          <dl class="case-study__meta">
+            <div><dt>Context</dt><dd>Startup</dd></div>
+            <div><dt>Industry</dt><dd>SaaS</dd></div>
+            <div><dt>Duration</dt><dd>6 months</dd></div>
+            <div><dt>Tools</dt><dd>Figma, ChatGPT, Claude</dd></div>
+          </dl>
+        </header>
+
+        <figure class="case-study__figure">
+          <!-- TODO: replace with your project cover image -->
+          <div class="image-placeholder image-placeholder--cover" role="img" aria-label="Cover placeholder">
+            <span class="image-placeholder__label">Cover</span>
+          </div>
+          <img
+            src="assets/images/cover.png"
+            alt="Cover image for True Communication"
+            class="case-study__cover"
+            loading="lazy"
+          >
+        </figure>
+
+        <div class="case-study__body">
+          <div class="case-study__block">
+            <h4 class="case-study__label">Problem</h4>
+            <p>People has to use multiple apps for the multiple purposes and also Communicattion issues in the COmmunities.</p>
+          </div>
+          <div class="case-study__block">
+            <h4 class="case-study__label">My Role</h4>
+            <p>UI/UX Designer</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Process</h4>
+            <p>Audited the current flow, AI Research, mapped the gaps, then restructured around a clearer hierarchy.</p>
+          </div>
+          <div class="case-study__block">
+            <h4 class="case-study__label">Key Decisions</h4>
+            <p>Instead of keeping feture first workflow, I made the workflow feel like User First.</p>
+          </div>
+          <div class="case-study__block">
+            <h4 class="case-study__label">Outcome</h4>
+            <p>I redeuced Information Overload, in numbers cut drop-off buy 25%.</p>
+          </div>
+        </div>
+
+        <figure class="case-study__figure case-study__figure--result">
+          <!-- TODO: replace with a final-screens image -->
+          <div class="image-placeholder image-placeholder--result" role="img" aria-label="Result placeholder">
+            <span class="image-placeholder__label">Final screens</span>
+          </div>
+          <img
+            src="assets/images/result.png"
+            alt="Final screens for True Communication"
+            class="case-study__result"
+            loading="lazy"
+          >
+        </figure>
+      </article>
+
+      <!-- Case Study 2: Intelligent Admin -->
+      <article class="case-study case-study--offset-right" aria-labelledby="cs2-title">
+        <header class="case-study__header">
+          <p class="case-study__nda">Details anonymized under NDA — client referred to as “Healthcare”</p>
+          <h3 id="cs2-title" class="case-study__title">Intelligent Admin</h3>
+          <dl class="case-study__meta">
+            <div><dt>Client</dt><dd>Healthcare</dd></div>
+            <div><dt>Context</dt><dd>Startup</dd></div>
+            <div><dt>Industry</dt><dd>Healthcare</dd></div>
+            <div><dt>Duration</dt><dd>4 weeks</dd></div>
+            <div><dt>Tools</dt><dd>Figma, Claude</dd></div>
+          </dl>
+        </header>
+
+        <figure class="case-study__figure">
+          <!-- TODO: replace with your project cover image -->
+          <div class="image-placeholder image-placeholder--cover" role="img" aria-label="Cover placeholder">
+            <span class="image-placeholder__label">Cover</span>
+          </div>
+          <img
+            src="assets/images/cover.png"
+            alt="Cover image for Intelligent Admin"
+            class="case-study__cover"
+            loading="lazy"
+          >
+        </figure>
+
+        <div class="case-study__body">
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Problem</h4>
+            <p>Hospital administrators lack a unified operational view of hospital activities, making it difficult to identify resource bottlenecks, coordinate departments, and respond quickly to operational issues.</p>
+          </div>
+          <div class="case-study__block">
+            <h4 class="case-study__label">My Role</h4>
+            <p>UI/UX Designer</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Process</h4>
+            <p>Analyzed existing hospital administration workflows, identified operational bottlenecks and fragmented information flow, then restructured the experience into a role-based AI-assisted operations platform with a unified information hierarchy.</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Key Decisions</h4>
+            <p>Hospital administrators don't need to continuously monitor dashboards. They need the system to surface critical operational issues automatically so they can focus on running the hospital instead of watching metrics.</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Outcome</h4>
+            <p>The redesign changed the administrator's workflow from reactive monitoring to proactive operations management. Rather than manually identifying issues across multiple modules, administrators are guided toward the most critical operational events first.</p>
+          </div>
+        </div>
+
+        <figure class="case-study__figure case-study__figure--result">
+          <!-- TODO: replace with a final-screens image -->
+          <div class="image-placeholder image-placeholder--result" role="img" aria-label="Result placeholder">
+            <span class="image-placeholder__label">Final screens</span>
+          </div>
+          <img
+            src="assets/images/result.png"
+            alt="Final screens for Intelligent Admin"
+            class="case-study__result"
+            loading="lazy"
+          >
+        </figure>
+      </article>
+
+      <!-- Case Study 3: Thali -->
+      <article class="case-study case-study--offset-left" aria-labelledby="cs3-title">
+        <header class="case-study__header">
+          <h3 id="cs3-title" class="case-study__title">Thali</h3>
+          <dl class="case-study__meta">
+            <div><dt>Context</dt><dd>Personal</dd></div>
+          </dl>
+        </header>
+
+        <figure class="case-study__figure">
+          <!-- TODO: replace with your project cover image -->
+          <div class="image-placeholder image-placeholder--cover" role="img" aria-label="Cover placeholder">
+            <span class="image-placeholder__label">Cover</span>
+          </div>
+          <img
+            src="assets/images/cover.png"
+            alt="Cover image for Thali"
+            class="case-study__cover"
+            loading="lazy"
+          >
+        </figure>
+
+        <div class="case-study__body">
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Problem</h4>
+            <p>Event hosts in India have no way to find, compare, or book a caterer who understands their regional cuisine — so every booking defaults to whoever a relative recommended, at whatever price they quoted.</p>
+            <p>No platform exists that speaks the language of Indian event food: region, sequence, cultural context. The result is opaque pricing, unverifiable quality, and menus that feel generic instead of authentic.</p>
+          </div>
+          <div class="case-study__block">
+            <h4 class="case-study__label">My Role</h4>
+            <p>Product Designer</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Process</h4>
+            <p>Audited existing catering platforms and mapped their UX against how Indian event hosts actually plan food — found a complete mismatch between restaurant-model interfaces and the regional, sequential nature of Indian event catering. Conducted observational research across family events to document the real decision flow. Identified three structural gaps: no regional intelligence, no cultural menu sequencing, no reverse-bid price discovery. Restructured the information architecture around four mental stages instead of eleven linear steps, reducing cognitive load without losing functionality. Designed the menu builder to follow cultural sequence — sweets before mains — and built the dynamic thali as a functional feedback mechanism, not decoration. Applied a reverse-bid model over fixed pricing because event catering pricing is always contextual, never commodity.</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Key Decisions</h4>
+            <p>The core USP of THALI is that the host builds the exact menu first — every dish, every category — and only then do caterers receive that specific menu as a bid brief. Vendors price each dish individually against the same menu, so the host sees a true like-for-like comparison: why Caterer A costs more, exactly which dishes drive that difference, and whether it's worth it. No other platform does this — everywhere else you pick a vendor first and negotiate food and price separately, blind.</p>
+          </div>
+          <div class="case-study__block case-study__block--wide">
+            <h4 class="case-study__label">Outcome</h4>
+            <p>For the first time, an event host can see exactly what they're paying for — dish by dish, vendor by vendor — and make a confident decision without a single phone call.</p>
+          </div>
+        </div>
+
+        <figure class="case-study__figure case-study__figure--result">
+          <!-- TODO: replace with a final-screens image -->
+          <div class="image-placeholder image-placeholder--result" role="img" aria-label="Result placeholder">
+            <span class="image-placeholder__label">Final screens</span>
+          </div>
+          <img
+            src="assets/images/result.png"
+            alt="Final screens for Thali"
+            class="case-study__result"
+            loading="lazy"
+          >
+        </figure>
+      </article>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact" aria-labelledby="contact-heading">
+      <div class="section__grid">
+        <div class="section__intro">
+          <h2 id="contact-heading" class="section__title">Contact</h2>
+          <p class="contact__note">Open to opportunities and always up for a good design conversation.</p>
+        </div>
+        <div class="section__body">
+          <ul class="contact-list">
+            <li>
+              <span class="contact-list__label">Email</span>
+              <a href="mailto:sivakrishnagrandalla@gmail.com">sivakrishnagrandalla@gmail.com</a>
+            </li>
+            <li>
+              <span class="contact-list__label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/siva-krishna-grandalla-4a06a2215/" target="_blank" rel="noopener noreferrer">Siva Krishna Grandalla</a>
+            </li>
+            <li>
+              <span class="contact-list__label">GitHub</span>
+              <a href="https://github.com/sivakrishnagrandallaUXUI" target="_blank" rel="noopener noreferrer">sivakrishnagrandallaUXUI</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Siva Krishna Grandalla</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
