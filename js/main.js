@@ -71,15 +71,37 @@
     }
   });
 
-  /* Scale full-size dashboard embeds to fit their responsive container */
-  function setEmbedScales() {
-    document.querySelectorAll('.dashboard-embed').forEach(function (el) {
-      const scale = el.clientWidth / 1280;
+  /* Scale full-size dashboard embeds to fit their responsive container.
+     Uses ResizeObserver so it self-corrects after font swaps/layout shifts,
+     not just a single measurement at script-load time. */
+  function applyEmbedScale(el) {
+    const scale = el.clientWidth / 1280;
+    if (scale > 0) {
       el.style.setProperty('--embed-scale', scale);
+    }
+  }
+
+  const dashboardEmbeds = document.querySelectorAll('.dashboard-embed');
+
+  dashboardEmbeds.forEach(applyEmbedScale);
+  window.addEventListener('load', function () {
+    dashboardEmbeds.forEach(applyEmbedScale);
+  });
+
+  if ('ResizeObserver' in window) {
+    const embedObserver = new ResizeObserver(function (entries) {
+      entries.forEach(function (entry) {
+        applyEmbedScale(entry.target);
+      });
+    });
+    dashboardEmbeds.forEach(function (el) {
+      embedObserver.observe(el);
+    });
+  } else {
+    window.addEventListener('resize', function () {
+      dashboardEmbeds.forEach(applyEmbedScale);
     });
   }
-  setEmbedScales();
-  window.addEventListener('resize', setEmbedScales);
 
   /* Cursor accent dot — fine pointers only, respects reduced motion */
   const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
