@@ -71,6 +71,16 @@
     }
   });
 
+  /* Scale full-size dashboard embeds to fit their responsive container */
+  function setEmbedScales() {
+    document.querySelectorAll('.dashboard-embed').forEach(function (el) {
+      const scale = el.clientWidth / 1280;
+      el.style.setProperty('--embed-scale', scale);
+    });
+  }
+  setEmbedScales();
+  window.addEventListener('resize', setEmbedScales);
+
   /* Cursor accent dot — fine pointers only, respects reduced motion */
   const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotionForCursor = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
