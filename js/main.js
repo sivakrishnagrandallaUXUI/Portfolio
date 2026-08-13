@@ -71,6 +71,36 @@
     }
   });
 
+  /* Cursor accent dot — fine pointers only, respects reduced motion */
+  const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+  const prefersReducedMotionForCursor = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (hasFinePointer && !prefersReducedMotionForCursor) {
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    document.body.appendChild(cursorDot);
+    let cursorActive = false;
+
+    window.addEventListener('mousemove', function (event) {
+      cursorDot.style.left = event.clientX + 'px';
+      cursorDot.style.top = event.clientY + 'px';
+
+      if (!cursorActive) {
+        cursorDot.classList.add('is-active');
+        cursorActive = true;
+      }
+
+      const isPointerTarget = event.target.closest(
+        'a, button, .app-mockup, .screens-gallery__item, .skills-list li'
+      );
+      cursorDot.classList.toggle('is-pointer', Boolean(isPointerTarget));
+    });
+
+    document.addEventListener('mouseleave', function () {
+      cursorDot.classList.remove('is-active');
+    });
+  }
+
   /* Smooth scroll reveal — respects reduced motion */
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

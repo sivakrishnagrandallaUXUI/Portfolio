@@ -3,25 +3,25 @@
 > **Details anonymized under NDA**.
 
 **Context:** Startup · **Industry:** Saas · **Duration:** 6 months
-**Tools:** Figma,ChatGPT,Claud
+**Tools:** Figma, ChatGPT, Claude
 
-![Cover placeholder](assets/images/cover.png)
-<!-- TODO: replace with your project cover image -->
+![Cover: custom "all-in-one" app mockup built in index.html](assets/images/cover.png)
+<!-- Cover is a hand-coded UI mockup in index.html, not an image file -->
 
 ## Problem
-People has to use multiple apps for the multiple purposes and also Communicattion issues in the COmmunities.
+People had to juggle multiple apps for related tasks, and communication kept breaking down inside the communities they relied on.
 
 ## My Role
-UIUX Designer
+UI/UX Designer
 
 ## Process
-Audited the current flow, AI Research, mapped the gaps, then restructured around a clearer hierarchy.
+Audited the current flow, ran AI-assisted research, mapped the gaps, then restructured around a clearer hierarchy.
 
 ## Key Decisions
-Instead of keeping feture first workflow,I made the workflow feel like User First.
+Instead of a feature-first workflow, I redesigned it to feel user-first.
 
 ## Outcome
-I redeuced Information Overload,in numbers cut drop-off buy 25%.
+Reduced information overload — cut drop-off by 25%.
 
-![Result placeholder](assets/images/result.png)
-<!-- TODO: replace with a final-screens image -->
+<!-- Final screens removed: NDA -->
+

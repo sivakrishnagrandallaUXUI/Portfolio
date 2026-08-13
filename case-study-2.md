@@ -3,10 +3,11 @@
 > **Details anonymized under NDA** — client referred to as “Healthcare”.
 
 **Client:** Healthcare · **Context:** Startup · **Industry:** Healthcare · **Duration:** 4 weeks
-**Tools:** Figma,Claud
+**Tools:** Figma, Claude
 
-![Cover placeholder](assets/images/cover.png)
-<!-- TODO: replace with your project cover image -->
+![Cover: custom dashboard mockup built in index.html](assets/images/cover.png)
+<!-- Cover is a hand-coded dashboard mockup in index.html, not an image file -->
+<!-- Final screens pending: will be provided as HTML files and scrubbed of any client-name references before use -->
 
 ## Problem
 Hospital administrators lack a unified operational view of hospital activities, making it difficult to identify resource bottlenecks, coordinate departments, and respond quickly to operational issues.
