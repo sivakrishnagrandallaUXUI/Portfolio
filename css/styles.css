@@ -673,8 +673,48 @@ ul {
 }
 
 .app-mockup--comm {
+  position: relative;
   aspect-ratio: 16 / 9;
-  background: radial-gradient(120% 140% at 18% 0%, #f6e9dd 0%, var(--color-surface-deep) 55%, #ded3c2 100%);
+  background: radial-gradient(120% 140% at 50% 0%, #f6e9dd 0%, var(--color-surface-deep) 55%, #ded3c2 100%);
+}
+
+.app-mockup__badge {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-signature);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.app-mockup__badge svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.app-mockup__badge--pay {
+  top: 12%;
+  left: 10%;
+}
+
+.app-mockup__badge--group {
+  top: 18%;
+  right: 12%;
+  color: var(--color-accent-soft);
+}
+
+@media (max-width: 560px) {
+  .app-mockup__badge {
+    display: none;
+  }
 }
 
 .app-stack {
@@ -706,23 +746,23 @@ ul {
 
 .phone-frame--taxi {
   z-index: 2;
-  transform: translate(-50%, -50%) translate(52%, 6%) rotate(7deg) scale(0.8);
+  transform: translate(-50%, -50%) translate(-92%, 8%) rotate(-9deg) scale(0.76);
 }
 
 .app-mockup--comm:hover .phone-frame--taxi {
-  transform: translate(-50%, -50%) translate(58%, 4%) rotate(5deg) scale(0.82);
+  transform: translate(-50%, -50%) translate(-98%, 6%) rotate(-7deg) scale(0.78);
 }
 
 .phone-frame--chat {
   z-index: 1;
-  opacity: 0.85;
-  filter: saturate(0.85) brightness(0.97);
-  transform: translate(-50%, -50%) translate(96%, -12%) rotate(13deg) scale(0.66);
+  opacity: 0.7;
+  filter: saturate(0.8) brightness(0.95);
+  transform: translate(-50%, -50%) translate(92%, -6%) rotate(10deg) scale(0.68);
 }
 
 .app-mockup--comm:hover .phone-frame--chat {
-  opacity: 0.95;
-  transform: translate(-50%, -50%) translate(100%, -14%) rotate(11deg) scale(0.68);
+  opacity: 0.85;
+  transform: translate(-50%, -50%) translate(97%, -8%) rotate(8deg) scale(0.7);
 }
 
 .chat-mini__header {
@@ -926,6 +966,55 @@ ul {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-ink);
+}
+
+.phone-frame__screen--splash {
+  background: linear-gradient(155deg, var(--color-ink) 0%, var(--color-accent) 55%, var(--color-signature) 130%);
+}
+
+.phone-status-bar--splash {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.app-splash {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem 2rem;
+  text-align: center;
+}
+
+.app-splash__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+}
+
+.app-splash__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.app-splash__word {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.app-splash__tag {
+  margin: 0;
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .app-home__header {
