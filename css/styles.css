@@ -1220,9 +1220,15 @@ ul {
   transform: translateX(-50%);
 }
 
-.admin-persona__figure {
+.admin-persona__photo {
+  display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: 0.9rem;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-soft);
 }
 
 .admin-persona__label {
