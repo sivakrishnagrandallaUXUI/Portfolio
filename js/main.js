@@ -103,6 +103,146 @@
     });
   }
 
+  /* Scroll progress hairline + header frost state */
+  const progressBar = document.querySelector('.scroll-progress__bar');
+  let scrollTicking = false;
+
+  function onScrollFrame() {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+
+    if (progressBar) {
+      progressBar.style.setProperty('--progress', pct.toFixed(2) + '%');
+    }
+    if (header) {
+      header.classList.toggle('is-stuck', window.scrollY > 24);
+    }
+    scrollTicking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(onScrollFrame);
+    }
+  }, { passive: true });
+  onScrollFrame();
+
+  /* Sliding nav indicator — follows hover, snaps back to the active section */
+  const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
+  const navIndicator = document.querySelector('.site-nav__indicator');
+  let activeNavLink = null;
+  let spyTicking = false;
+
+  function moveIndicatorTo(link) {
+    if (!navIndicator || !link) return;
+    navIndicator.style.width = link.offsetWidth + 'px';
+    navIndicator.style.transform = 'translateX(' + link.offsetLeft + 'px)';
+    navIndicator.classList.add('is-active');
+  }
+
+  function resetIndicator() {
+    if (!navIndicator) return;
+    if (activeNavLink) {
+      moveIndicatorTo(activeNavLink);
+    } else {
+      navIndicator.classList.remove('is-active');
+    }
+  }
+
+  navLinks.forEach(function (link) {
+    link.addEventListener('mouseenter', function () { moveIndicatorTo(link); });
+    link.addEventListener('focus', function () { moveIndicatorTo(link); });
+  });
+
+  const navList = document.getElementById('nav-list');
+  if (navList) {
+    navList.addEventListener('mouseleave', resetIndicator);
+  }
+
+  /* Scrollspy — marks the section currently in view */
+  const spySections = navLinks
+    .map(function (link) {
+      const el = document.querySelector(link.getAttribute('href'));
+      return el ? { link: link, el: el } : null;
+    })
+    .filter(Boolean);
+
+  /* Deterministic: pick the last section whose top has passed the read line.
+     An IntersectionObserver fired per-entry and left tall neighbouring
+     sections fighting over which one was "current". */
+  function updateSpy() {
+    const readLine = window.scrollY + window.innerHeight * 0.35;
+    let current = null;
+
+    spySections.forEach(function (s) {
+      if (s.el.offsetTop <= readLine) current = s;
+    });
+
+    // Pin to the final section once the page is scrolled to the bottom
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+      current = spySections[spySections.length - 1];
+    }
+
+    navLinks.forEach(function (l) { l.classList.remove('is-current'); });
+
+    if (current) {
+      current.link.classList.add('is-current');
+      activeNavLink = current.link;
+    } else {
+      activeNavLink = null;
+    }
+    resetIndicator();
+  }
+
+  if (spySections.length) {
+    window.addEventListener('scroll', function () {
+      if (!spyTicking) {
+        spyTicking = true;
+        requestAnimationFrame(function () {
+          updateSpy();
+          spyTicking = false;
+        });
+      }
+    }, { passive: true });
+    window.addEventListener('load', updateSpy);
+    updateSpy();
+  }
+
+  window.addEventListener('resize', resetIndicator);
+
+  /* Stat counters — count up once the tile scrolls into view */
+  const statValues = document.querySelectorAll('.stat__value[data-count]');
+
+  if (statValues.length && 'IntersectionObserver' in window) {
+    const countObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          countObserver.unobserve(el);
+
+          const target = parseFloat(el.getAttribute('data-count'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 1100;
+          const start = performance.now();
+
+          function step(now) {
+            const t = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.round(target * eased) + suffix;
+            if (t < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    statValues.forEach(function (el) { countObserver.observe(el); });
+  }
+
   /* Reactive mesh background — drifts on its own via CSS, nudges gently
      toward the cursor here. Skipped for reduced motion / coarse pointers. */
   const meshBg = document.querySelector('.mesh-bg');
@@ -157,7 +297,7 @@
 
   /* Magnetic buttons — the CTA drifts slightly toward the cursor */
   if (meshHasFinePointer && !meshPrefersReducedMotion) {
-    document.querySelectorAll('.hero__cta').forEach(function (btn) {
+    document.querySelectorAll('.btn--solid').forEach(function (btn) {
       btn.addEventListener('mousemove', function (event) {
         const rect = btn.getBoundingClientRect();
         const mx = event.clientX - (rect.left + rect.width / 2);
@@ -191,7 +331,8 @@
       }
 
       const isPointerTarget = event.target.closest(
-        'a, button, .app-mockup, .screens-gallery__item, .skills-list li'
+        'a, button, .app-mockup, .screens-gallery__item, .skills-list li, ' +
+        '.cert-card, .gallery__item, .status-chip'
       );
       cursorDot.classList.toggle('is-pointer', Boolean(isPointerTarget));
     });
@@ -206,11 +347,15 @@
 
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     const revealTargets = document.querySelectorAll(
-      '.hero__content, .hero__portrait, .section__intro, .section__body, .case-study, .work__intro'
+      '.hero__lede, .hero__aside, .section__head, .bento__tile, .case-study, ' +
+      '.cert-card, .gallery__item, .contact__panel'
     );
 
-    revealTargets.forEach(function (el) {
+    revealTargets.forEach(function (el, i) {
       el.classList.add('reveal');
+      // Stagger siblings inside the same grid/row so they cascade in
+      const stagger = (i % 4) * 70;
+      el.style.transitionDelay = stagger + 'ms';
     });
 
     const observer = new IntersectionObserver(
