@@ -368,7 +368,8 @@ ul {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-signature);
+  /* muted, not accent — accent is reserved for the CTA and headline word */
+  color: var(--color-ink-soft);
 }
 
 /* --- Center nav with sliding indicator --- */
@@ -661,7 +662,7 @@ ul {
   width: clamp(1.5rem, 4vw, 3rem);
   height: 1px;
   flex-shrink: 0;
-  background: var(--color-signature);
+  background: var(--color-ink-soft);
 }
 
 /* Headline — deliberately quieter than a display-size shout. The motion,
@@ -694,7 +695,9 @@ ul {
   width: var(--rotator-w, auto);
   overflow: hidden;
   vertical-align: bottom;
-  transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  /* faster than the 0.6s slide so the slot is already wide enough when a
+     longer word arrives; main.js delays the shrink until the word has left */
+  transition: width 0.32s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .hero__rotator-track {
@@ -767,14 +770,17 @@ ul {
 .spectrum__item:nth-child(3) { animation-delay: 4s; }
 .spectrum__item:nth-child(4) { animation-delay: 6s; }
 
+/* Neutral, not accent: this row is currently decorative (see notes), and
+   orange here would be a third accent competing in the same viewport. If
+   it becomes a real control, the accent can return as an active-state cue. */
 @keyframes spectrum-cycle {
   0%, 22%, 100% {
     color: var(--color-ink-soft);
     background: transparent;
   }
   6%, 16% {
-    color: var(--color-signature);
-    background: var(--color-signature-tint);
+    color: var(--color-ink);
+    background: var(--color-surface-deep);
   }
 }
 
@@ -820,7 +826,7 @@ ul {
 /* Working-ethos note — a quiet closing line under the CTAs */
 .hero__ethos {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   margin: var(--space-md) 0 0;
   font-size: 0.875rem;
@@ -834,7 +840,9 @@ ul {
   width: 1.75rem;
   height: 1px;
   flex-shrink: 0;
-  background: var(--color-signature);
+  /* nudge onto the first text line now that the copy wraps to two lines */
+  margin-top: 0.65em;
+  background: var(--color-ink-soft);
   opacity: 0.7;
 }
 
@@ -849,73 +857,21 @@ ul {
   width: min(100%, 23rem);
 }
 
-.hero__chip {
-  position: absolute;
-  z-index: 3;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.75rem;
-  color: var(--color-ink);
-  /* Solid-ish ground: these sit over the portrait, so translucent glass
-     alone left them unreadable */
-  background: rgba(14, 19, 16, 0.86);
-  border-radius: 999px;
-  white-space: nowrap;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  animation: chip-float 7s ease-in-out infinite;
-}
-
-.hero__chip b {
-  color: var(--color-signature);
-  font-weight: 600;
-}
-
-/* Live dot on the availability chip — echoes the header status badge */
-.hero__chip-dot {
-  width: 6px;
-  height: 6px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #5fcf8e;
-  animation: pulse-dot 2.6s ease-out infinite;
-}
-
-.hero__chip--one {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.hero__chip--one {
-  top: 9%;
-  left: -18%;
-}
-
-.hero__chip--two {
-  bottom: 11%;
-  right: -14%;
-  animation-delay: -3.5s;
-}
-
-/* Tuck the chips back in when there isn't room to overhang */
-@media (max-width: 1180px) {
-  .hero__chip--one { left: -8%; }
-  .hero__chip--two { right: -6%; }
-}
-
-@keyframes chip-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__chip { animation: none; }
-}
+/* The two floating portrait badges were removed: they overlapped the photo,
+   duplicated the nav's availability message, and added two more accent
+   colours to the first viewport. Their content now lives in the nav status
+   chip and the .hero__ethos line. */
 
 /* Capability ticker across the base of the hero */
+/* Full-bleed: the hero is max-width capped and centred, so left/right:0 made
+   the marquee stop short of the viewport and read as clipped. It's an
+   infinite scroll, so it's now intentionally edge-to-edge. body already sets
+   overflow-x: hidden, so 100vw introduces no horizontal scrollbar. */
 .ticker {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   bottom: 0;
   padding: 0.9rem 0;
   overflow: hidden;
@@ -962,23 +918,11 @@ ul {
   .ticker__track { animation: none; }
 }
 
+/* Emphasis by weight/style only — the orange squiggle was a third accent
+   competing with the headline word and the CTA */
 .hero__highlight {
-  position: relative;
   font-style: italic;
   color: var(--color-ink);
-}
-
-.hero__highlight::after {
-  content: "";
-  position: absolute;
-  left: -3%;
-  right: -3%;
-  bottom: -0.22em;
-  height: 0.4em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='12'%3E%3Cpath d='M0 8 Q8 2 16 8 T32 8' fill='none' stroke='%23b1502e' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: left center;
-  background-size: 28px 100%;
 }
 
 .hero__portrait {
@@ -2720,9 +2664,6 @@ ul {
     justify-self: start;
     width: min(100%, 17rem);
   }
-
-  .hero__chip--one { left: auto; right: -6%; top: 6%; }
-  .hero__chip--two { right: auto; left: -6%; bottom: 8%; }
 
   .section__grid {
     grid-template-columns: 1fr;

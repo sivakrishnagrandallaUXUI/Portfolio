@@ -52,9 +52,9 @@
       </div>
 
       <div class="site-nav__actions">
-        <span class="status-chip" title="Currently open to opportunities">
+        <span class="status-chip" title="Available to join immediately">
           <span class="status-chip__dot" aria-hidden="true"></span>
-          Open to work
+          Available immediately
         </span>
         <a class="btn btn--ghost site-nav__resume" href="assets/resume/Siva_Krishna_Grandalla_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
         <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
@@ -72,6 +72,9 @@
         <li><a href="#credentials">Credentials</a></li>
         <li><a href="#moments">Moments</a></li>
         <li><a href="#contact">Contact</a></li>
+        <!-- The nav résumé button is hidden under 720px, so mobile needs its
+             own route to the file now that the hero button is gone -->
+        <li><a href="assets/resume/Siva_Krishna_Grandalla_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a></li>
       </ul>
     </div>
   </header>
@@ -120,14 +123,12 @@
             View selected work
             <span class="btn__arrow" aria-hidden="true">&rarr;</span>
           </a>
-          <a class="btn btn--ghost" href="assets/resume/Siva_Krishna_Grandalla_Resume.pdf" target="_blank" rel="noopener noreferrer">
-            Download résumé
-          </a>
         </div>
 
+        <!-- Absorbs the two former photo badges as plain low-weight text -->
         <p class="hero__ethos">
           <span class="hero__ethos-rule" aria-hidden="true"></span>
-          Driven by the work, not the clock &mdash; I stay with a problem until it&rsquo;s right.
+          Across India &amp; remote. Driven by the work, not the clock &mdash; I stay with a problem until it&rsquo;s right.
         </p>
       </div>
 
@@ -142,14 +143,6 @@
             loading="eager"
           >
         </div>
-
-        <span class="hero__chip hero__chip--one glass">
-          <span class="hero__chip-dot" aria-hidden="true"></span>
-          Available to join <b>immediately</b>
-        </span>
-        <span class="hero__chip hero__chip--two glass">
-          Across <b>India</b> &amp; remote
-        </span>
       </aside>
 
       <!-- Edge-to-edge capability ticker, doubled for a seamless loop -->

@@ -120,15 +120,21 @@
     const SLIDE = 600;
     let index = 0;
 
-    function sizeToWord(i) {
-      slot.style.setProperty('--rotator-w', words[i].getBoundingClientRect().width + 'px');
+    /* Widen before the word slides in, but only narrow once it has left —
+       otherwise a wider incoming word is clipped while the slot is still
+       growing (and a narrower one clips the outgoing word on the way out). */
+    function sizeToWord(i, immediate) {
+      const next = words[i].getBoundingClientRect().width;
+      const current = parseFloat(slot.style.getPropertyValue('--rotator-w')) || next;
+      slot.style.transitionDelay = immediate || next >= current ? '0ms' : SLIDE + 'ms';
+      slot.style.setProperty('--rotator-w', next + 'px');
     }
 
     function offsetFor(i) {
       return words[0].getBoundingClientRect().height * i;
     }
 
-    sizeToWord(0);
+    sizeToWord(0, true);
 
     function advance() {
       index += 1;
@@ -154,14 +160,14 @@
     window.addEventListener('resize', function () {
       track.style.transition = 'none';
       track.style.transform = 'translateY(-' + offsetFor(index) + 'px)';
-      sizeToWord(index);
+      sizeToWord(index, true);
       void track.offsetHeight;
       track.style.transition = '';
     });
 
     // Fonts load after first paint and change the measurements
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { sizeToWord(index); });
+      document.fonts.ready.then(function () { sizeToWord(index, true); });
     }
   })();
 
