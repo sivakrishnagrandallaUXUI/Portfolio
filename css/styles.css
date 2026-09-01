@@ -686,18 +686,24 @@ ul {
   font-weight: 400;
 }
 
-/* Vertical word carousel — cycles the crafts through one fixed slot */
+/* Vertical word carousel. The slot width tracks the active word (set by
+   main.js) so short words don't leave a gap before the next static word. */
 .hero__rotator {
   display: inline-block;
   height: 1.22em;
+  width: var(--rotator-w, auto);
   overflow: hidden;
   vertical-align: bottom;
+  transition: width 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .hero__rotator-track {
   display: flex;
   flex-direction: column;
-  animation: rotate-crafts 13s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  /* shrink-to-fit each word: the default stretch made every word measure
+     as the widest one, so the slot could never size to the active word */
+  align-items: flex-start;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .hero__rotator-word {
@@ -710,15 +716,6 @@ ul {
   white-space: nowrap;
 }
 
-/* Five crafts + a repeat of the first, so the loop closes seamlessly */
-@keyframes rotate-crafts {
-  0%, 15%    { transform: translateY(0); }
-  20%, 35%   { transform: translateY(-1.22em); }
-  40%, 55%   { transform: translateY(-2.44em); }
-  60%, 75%   { transform: translateY(-3.66em); }
-  80%, 95%   { transform: translateY(-4.88em); }
-  100%       { transform: translateY(-6.1em); }
-}
 
 /* Role line + the four-craft spectrum */
 .hero__role {
@@ -785,9 +782,11 @@ ul {
 @media (prefers-reduced-motion: reduce) {
   .hero__rotator {
     height: auto;
+    width: auto !important;
   }
   .hero__rotator-track {
-    animation: none;
+    transition: none;
+    transform: none !important;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0 0.35em;
@@ -818,6 +817,31 @@ ul {
   gap: 0.75rem;
 }
 
+/* Working-ethos note — a quiet closing line under the CTAs */
+.hero__ethos {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: var(--space-md) 0 0;
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  max-width: 42ch;
+}
+
+.hero__ethos-rule {
+  width: 1.75rem;
+  height: 1px;
+  flex-shrink: 0;
+  background: var(--color-signature);
+  opacity: 0.7;
+}
+
+@media (max-width: 620px) {
+  .hero__ethos-rule { display: none; }
+}
+
 /* Portrait + floating info chips */
 .hero__aside {
   position: relative;
@@ -843,6 +867,22 @@ ul {
 .hero__chip b {
   color: var(--color-signature);
   font-weight: 600;
+}
+
+/* Live dot on the availability chip — echoes the header status badge */
+.hero__chip-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #5fcf8e;
+  animation: pulse-dot 2.6s ease-out infinite;
+}
+
+.hero__chip--one {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .hero__chip--one {

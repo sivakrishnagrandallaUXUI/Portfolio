@@ -103,6 +103,68 @@
     });
   }
 
+  /* Hero craft rotator — steps the word carousel and sizes the slot to the
+     active word, so a short word never leaves a gap before "systems.".
+     The last word is a duplicate of the first: we animate onto it, then
+     snap back to index 0 with the transition off for a seamless loop. */
+  (function initRotator() {
+    const slot = document.querySelector('.hero__rotator');
+    const track = document.querySelector('.hero__rotator-track');
+    if (!slot || !track) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const words = Array.from(track.querySelectorAll('.hero__rotator-word'));
+    if (words.length < 2) return;
+
+    const HOLD = 2600;
+    const SLIDE = 600;
+    let index = 0;
+
+    function sizeToWord(i) {
+      slot.style.setProperty('--rotator-w', words[i].getBoundingClientRect().width + 'px');
+    }
+
+    function offsetFor(i) {
+      return words[0].getBoundingClientRect().height * i;
+    }
+
+    sizeToWord(0);
+
+    function advance() {
+      index += 1;
+      track.style.transition = '';
+      track.style.transform = 'translateY(-' + offsetFor(index) + 'px)';
+      sizeToWord(index);
+
+      if (index === words.length - 1) {
+        // Landed on the duplicate — reset to the real first word invisibly
+        window.setTimeout(function () {
+          track.style.transition = 'none';
+          track.style.transform = 'translateY(0)';
+          index = 0;
+          void track.offsetHeight; // flush before transitions resume
+          track.style.transition = '';
+        }, SLIDE + 40);
+      }
+    }
+
+    window.setInterval(advance, HOLD);
+
+    // Font sizes are clamp()-based, so remeasure when the viewport changes
+    window.addEventListener('resize', function () {
+      track.style.transition = 'none';
+      track.style.transform = 'translateY(-' + offsetFor(index) + 'px)';
+      sizeToWord(index);
+      void track.offsetHeight;
+      track.style.transition = '';
+    });
+
+    // Fonts load after first paint and change the measurements
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { sizeToWord(index); });
+    }
+  })();
+
   /* Scroll progress hairline + header frost state */
   const progressBar = document.querySelector('.scroll-progress__bar');
   let scrollTicking = false;
