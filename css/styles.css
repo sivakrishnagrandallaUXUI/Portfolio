@@ -234,6 +234,20 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+/* Visually hidden, still read aloud — used to give the animated headline a
+   complete, static sentence for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   color: var(--color-ink);
@@ -650,53 +664,145 @@ ul {
   background: var(--color-signature);
 }
 
+/* Headline — deliberately quieter than a display-size shout. The motion,
+   not the type size, is what carries the message here. */
 .hero__title {
+  font-size: clamp(1.85rem, 4vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  margin-bottom: var(--space-md);
+}
+
+.hero__title-visual {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.32em;
+}
+
+.hero__title-static {
+  color: var(--color-ink-muted);
+  font-weight: 400;
+}
+
+/* Vertical word carousel — cycles the crafts through one fixed slot */
+.hero__rotator {
+  display: inline-block;
+  height: 1.22em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.hero__rotator-track {
   display: flex;
   flex-direction: column;
-  font-size: clamp(2.9rem, 8.5vw, 6.75rem);
+  animation: rotate-crafts 13s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+.hero__rotator-word {
+  height: 1.22em;
+  line-height: 1.22em;
+  font-family: var(--font-display);
+  font-style: italic;
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  margin-bottom: var(--space-lg);
+  color: var(--color-signature);
+  white-space: nowrap;
 }
 
-.hero__line {
-  display: block;
-  overflow: hidden;
+/* Five crafts + a repeat of the first, so the loop closes seamlessly */
+@keyframes rotate-crafts {
+  0%, 15%    { transform: translateY(0); }
+  20%, 35%   { transform: translateY(-1.22em); }
+  40%, 55%   { transform: translateY(-2.44em); }
+  60%, 75%   { transform: translateY(-3.66em); }
+  80%, 95%   { transform: translateY(-4.88em); }
+  100%       { transform: translateY(-6.1em); }
 }
 
-/* Each word rises into place on load */
-.hero__word {
-  display: inline-block;
-  transform: translateY(105%);
-  animation: hero-rise 1s var(--ease-spring) forwards;
+/* Role line + the four-craft spectrum */
+.hero__role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: var(--space-md);
 }
 
-.hero__line:nth-child(1) .hero__word { animation-delay: 0.05s; }
-.hero__line:nth-child(2) .hero__word { animation-delay: 0.16s; }
-.hero__line:nth-child(3) .hero__word { animation-delay: 0.27s; }
-
-@keyframes hero-rise {
-  to { transform: translateY(0); }
+.hero__role-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero__word {
-    transform: none;
-    animation: none;
+.spectrum {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--glass-border);
+}
+
+/* Once the role line wraps, the divider reads as a stray rule — drop it */
+@media (max-width: 620px) {
+  .spectrum {
+    padding-left: 0;
+    border-left: 0;
+    margin-left: -0.5rem;
   }
 }
 
-.hero__word--accent {
-  color: var(--color-signature);
-  font-style: italic;
+/* Each craft lights in turn — one designer covering the whole range */
+.spectrum__item {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  animation: spectrum-cycle 8s ease-in-out infinite;
 }
 
-.hero__amp {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--color-ink-soft);
+.spectrum__item:nth-child(1) { animation-delay: 0s; }
+.spectrum__item:nth-child(2) { animation-delay: 2s; }
+.spectrum__item:nth-child(3) { animation-delay: 4s; }
+.spectrum__item:nth-child(4) { animation-delay: 6s; }
+
+@keyframes spectrum-cycle {
+  0%, 22%, 100% {
+    color: var(--color-ink-soft);
+    background: transparent;
+  }
+  6%, 16% {
+    color: var(--color-signature);
+    background: var(--color-signature-tint);
+  }
+}
+
+/* Motion is the message here, so fall back to a legible static state */
+@media (prefers-reduced-motion: reduce) {
+  .hero__rotator {
+    height: auto;
+  }
+  .hero__rotator-track {
+    animation: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 0.35em;
+  }
+  .hero__rotator-word:last-child {
+    display: none;
+  }
+  .hero__rotator-word:not(:last-child):not(:nth-last-child(2))::after {
+    content: ",";
+    color: var(--color-ink-soft);
+  }
+  .spectrum__item {
+    animation: none;
+    color: var(--color-signature);
+  }
 }
 
 .hero__tagline {
