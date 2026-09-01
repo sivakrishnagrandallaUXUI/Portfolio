@@ -103,6 +103,74 @@
     });
   }
 
+  /* Reactive mesh background — drifts on its own via CSS, nudges gently
+     toward the cursor here. Skipped for reduced motion / coarse pointers. */
+  const meshBg = document.querySelector('.mesh-bg');
+  const meshHasFinePointer = window.matchMedia('(pointer: fine)').matches;
+  const meshPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (meshBg && meshHasFinePointer && !meshPrefersReducedMotion) {
+    let meshTargetX = 0;
+    let meshTargetY = 0;
+    let meshCurrentX = 0;
+    let meshCurrentY = 0;
+    const meshRange = 28; // max px the mesh nudges toward the cursor
+
+    window.addEventListener('mousemove', function (event) {
+      const nx = event.clientX / window.innerWidth - 0.5;
+      const ny = event.clientY / window.innerHeight - 0.5;
+      meshTargetX = nx * meshRange;
+      meshTargetY = ny * meshRange;
+    });
+
+    (function tickMesh() {
+      meshCurrentX += (meshTargetX - meshCurrentX) * 0.04;
+      meshCurrentY += (meshTargetY - meshCurrentY) * 0.04;
+      meshBg.style.setProperty('--mesh-x', meshCurrentX.toFixed(2) + 'px');
+      meshBg.style.setProperty('--mesh-y', meshCurrentY.toFixed(2) + 'px');
+      requestAnimationFrame(tickMesh);
+    })();
+  }
+
+  /* Glass card tilt + cursor glare — fine pointers only */
+  if (meshHasFinePointer && !meshPrefersReducedMotion) {
+    document.querySelectorAll('.glass-tilt').forEach(function (card) {
+      const maxTilt = 5; // degrees
+
+      card.addEventListener('mousemove', function (event) {
+        const rect = card.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+
+        card.style.setProperty('--tilt-x', ((0.5 - py) * maxTilt * 2).toFixed(2) + 'deg');
+        card.style.setProperty('--tilt-y', ((px - 0.5) * maxTilt * 2).toFixed(2) + 'deg');
+        card.style.setProperty('--glare-x', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--glare-y', (py * 100).toFixed(1) + '%');
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
+    });
+  }
+
+  /* Magnetic buttons — the CTA drifts slightly toward the cursor */
+  if (meshHasFinePointer && !meshPrefersReducedMotion) {
+    document.querySelectorAll('.hero__cta').forEach(function (btn) {
+      btn.addEventListener('mousemove', function (event) {
+        const rect = btn.getBoundingClientRect();
+        const mx = event.clientX - (rect.left + rect.width / 2);
+        const my = event.clientY - (rect.top + rect.height / 2);
+        btn.style.transform = 'translate(' + (mx * 0.25).toFixed(1) + 'px, ' + (my * 0.35).toFixed(1) + 'px)';
+      });
+
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+  }
+
   /* Cursor accent dot — fine pointers only, respects reduced motion */
   const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotionForCursor = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -138,7 +206,7 @@
 
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     const revealTargets = document.querySelectorAll(
-      '.hero__content, .hero__portrait, .section__grid, .case-study, .work__intro'
+      '.hero__content, .hero__portrait, .section__intro, .section__body, .case-study, .work__intro'
     );
 
     revealTargets.forEach(function (el) {

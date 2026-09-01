@@ -7,10 +7,18 @@
   <title>Siva Krishna Grandalla — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <!-- Reactive mesh-gradient background — sits behind everything, drifts on
+       its own and nudges gently toward the cursor via JS (see main.js) -->
+  <div class="mesh-bg" aria-hidden="true">
+    <span class="mesh-bg__blob mesh-bg__blob--clay"></span>
+    <span class="mesh-bg__blob mesh-bg__blob--teal"></span>
+    <span class="mesh-bg__blob mesh-bg__blob--gold"></span>
+  </div>
 
   <!-- Minimal floating top bar -->
   <header class="site-header" role="banner">
@@ -39,13 +47,13 @@
 
     <!-- Split editorial hero -->
     <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero__content">
+      <div class="hero__content glass glass-tilt">
         <p class="hero__eyebrow">UI/UX Designer</p>
         <h1 id="hero-heading" class="hero__title">Siva Krishna<br>Grandalla</h1>
         <p class="hero__tagline">Product designer who thinks in systems and designs for <span class="hero__highlight">people</span>.</p>
         <a class="hero__cta" href="assets/resume/Siva_Krishna_Grandalla_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume <span class="hero__cta-arrow" aria-hidden="true">&rarr;</span></a>
       </div>
-      <div class="hero__portrait">
+      <div class="hero__portrait glass">
         <img
           src="assets/images/portrait.png"
           alt="Portrait of Siva Krishna Grandalla"
@@ -64,7 +72,7 @@
           <p class="section__kicker">01 &mdash; Who I am</p>
           <h2 id="about-heading" class="section__title">About</h2>
         </div>
-        <div class="section__body">
+        <div class="section__body glass glass-tilt">
           <p class="lead">I'm a product designer who spent few months in the trenches of real product teams, and now building concept projects that solve problems I've watched real people struggle with.</p>
           <p>My focus is culturally-rooted product design for Indian users — where generic interfaces fail and context-aware thinking wins.</p>
 
@@ -99,7 +107,7 @@
       </div>
 
       <!-- Case Study 1: True Communication -->
-      <article class="case-study case-study--offset-left" aria-labelledby="cs1-title">
+      <article class="case-study case-study--offset-left glass glass-tilt" aria-labelledby="cs1-title">
         <header class="case-study__header">
           <p class="case-study__nda">Details anonymized under NDA</p>
           <h3 id="cs1-title" class="case-study__title">True Communication</h3>
@@ -208,7 +216,7 @@
       </article>
 
       <!-- Case Study 2: Intelligent Admin -->
-      <article class="case-study case-study--offset-right" aria-labelledby="cs2-title">
+      <article class="case-study case-study--offset-right glass glass-tilt" aria-labelledby="cs2-title">
         <header class="case-study__header">
           <p class="case-study__nda">Details anonymized under NDA — client referred to as “Healthcare”</p>
           <h3 id="cs2-title" class="case-study__title">Intelligent Admin</h3>
@@ -289,7 +297,7 @@
       </article>
 
       <!-- Case Study 3: Thali -->
-      <article class="case-study case-study--offset-left" aria-labelledby="cs3-title">
+      <article class="case-study case-study--offset-left glass glass-tilt" aria-labelledby="cs3-title">
         <header class="case-study__header">
           <h3 id="cs3-title" class="case-study__title">Thali</h3>
           <dl class="case-study__meta">
@@ -374,7 +382,7 @@
           <h2 id="contact-heading" class="section__title">Contact</h2>
           <p class="contact__note">Open to opportunities and always up for a good design conversation.</p>
         </div>
-        <div class="section__body">
+        <div class="section__body glass glass-tilt">
           <ul class="contact-list">
             <li>
               <span class="contact-list__label">Email</span>
