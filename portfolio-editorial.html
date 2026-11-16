@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Siva Krishna Grandalla — product designer focused on culturally-rooted design for Indian users.">
+  <title>Siva Krishna Grandalla — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Design DNA — Editorial: stories before interfaces. Warm neutral + one muted ink accent. */
+    :root {
+      --bg-top: #faf7f2;
+      --bg-bottom: #f0ebe3;
+      --surface: #f5f1ea;
+      --ink: #2c2620;
+      --ink-muted: #5c534a;      /* 7.2:1 on bg-top */
+      --ink-soft: #6f655a;       /* 5.2:1 on bg-top, AA for body */
+      --accent: #2f4a45;         /* muted ink-teal, 9:1 on bg-top */
+      --line: rgba(44, 38, 32, 0.14);
+      --radius: 20px;
+      --shadow: 0 24px 60px rgba(44, 38, 32, 0.10);
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", system-ui, sans-serif;
+      --margin: clamp(20px, 7vw, 120px);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font: 400 1.0625rem/1.7 var(--sans);
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom)) fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .wrap { padding-inline: var(--margin); max-width: 1440px; margin-inline: auto; }
+    .eyebrow { font: 600 .75rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; letter-spacing: -.01em; }
+    em { font-style: italic; color: var(--accent); }
+
+    /* Floating nav */
+    .nav {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; gap: 4px; align-items: center; padding: 6px;
+      background: rgba(250, 247, 242, .85); backdrop-filter: blur(12px);
+      border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow);
+    }
+    .nav a { padding: 10px 16px; font-size: .875rem; font-weight: 500; text-decoration: none; border-radius: 999px; color: var(--ink-muted); }
+    .nav a:hover { background: var(--surface); color: var(--ink); }
+    .nav a.cta { background: var(--ink); color: var(--bg-top); }
+
+    /* Hero: split editorial */
+    .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; min-height: 100svh; padding-block: 120px 64px; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 7rem); margin-block: 20px 28px; }
+    .hero p.lede { font-size: 1.25rem; color: var(--ink-muted); max-width: 34ch; }
+    .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+    .btn { display: inline-block; padding: 14px 24px; border-radius: 999px; font-weight: 500; font-size: .9375rem; text-decoration: none; border: 1px solid var(--ink); }
+    .btn.solid { background: var(--ink); color: var(--bg-top); }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn { transition: transform .4s cubic-bezier(.2, .7, .2, 1), box-shadow .4s; }
+    .portrait { aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05); }
+
+    section { padding-block: clamp(72px, 12vw, 160px); }
+    .sec-head { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; margin-bottom: 64px; }
+    .sec-head h2 { font-size: clamp(2.25rem, 5vw, 4rem); }
+
+    /* About */
+    .about-body { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; }
+    .about-body .text { display: grid; gap: 20px; max-width: 62ch; color: var(--ink-muted); }
+    .about-body .text p:first-child { font: 500 1.75rem/1.3 var(--serif); color: var(--ink); }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .skills li { list-style: none; padding: 8px 16px; border-radius: 999px; background: var(--surface); font-size: .875rem; color: var(--ink-muted); }
+
+    /* Work — borderless, separated by space */
+    .case { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; padding-block: 56px; border-top: 1px solid var(--line); }
+    .case .num { font: 500 1.25rem var(--serif); color: var(--ink-soft); }
+    .case h3 { font-size: clamp(2rem, 4vw, 3.25rem); margin-block: 8px 12px; }
+    .case .meta { font-size: .875rem; color: var(--ink-soft); }
+    .case dl { display: grid; gap: 22px; max-width: 64ch; }
+    .case dt { font: 600 .75rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .case dd { color: var(--ink-muted); }
+    .case .key dd { font: 500 1.375rem/1.4 var(--serif); color: var(--ink); }
+    .tag { display: inline-block; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--surface); font-size: .75rem; color: var(--ink-muted); }
+
+    /* Contact */
+    .contact { text-align: center; }
+    .contact h2 { font-size: clamp(2.75rem, 8vw, 6.5rem); margin-block: 20px 36px; }
+    .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { padding-block: 32px 48px; text-align: center; font-size: .875rem; color: var(--ink-soft); }
+
+    /* Smooth, quiet reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn { transition: none; }
+    }
+
+    @media (max-width: 820px) {
+      .hero, .sec-head, .about-body, .case { grid-template-columns: 1fr; }
+      .hero { padding-top: 104px; }
+      .portrait { order: -1; max-width: 360px; }
+      .nav a:not(.cta) { padding-inline: 10px; }
+      .nav a.hide-sm { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact" class="cta">Contact</a>
+  </nav>
+
+  <main id="top">
+    <header class="wrap hero">
+      <div>
+        <p class="eyebrow">Product Designer · India</p>
+        <h1>Design that knows its <em>context.</em></h1>
+        <p class="lede">I design for Indian families and communities, where generic interfaces fail and context-aware thinking wins.</p>
+        <div class="actions">
+          <a class="btn solid" href="#work">See the work</a>
+          <a class="btn" href="assets/resume/Siva_Krishna_Grandalla_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="assets/images/portrait.png" alt="Portrait of Siva Krishna Grandalla" width="800" height="1000">
+      </figure>
+    </header>
+
+    <section id="about" class="wrap" aria-labelledby="about-h">
+      <div class="sec-head reveal">
+        <p class="eyebrow">About</p>
+        <h2 id="about-h">Systems thinker. <em>People first.</em></h2>
+      </div>
+      <div class="about-body reveal">
+        <div></div>
+        <div class="text">
+          <p>I've worked inside real product teams, and now I build concept projects around problems I've watched real people struggle with.</p>
+          <p>I've designed alongside two senior designers' product teams, and my focus is culturally-rooted product design for Indian users.</p>
+          <p>Off the screen I obsess over Indian app experiences, argue about design systems nobody asked me to, and occasionally get the spacing right. Open to opportunities and always up for a good design conversation.</p>
+          <ul class="skills" aria-label="Skills">
+            <li>Product Design</li><li>User Research</li><li>Wireframing</li><li>Prototyping</li>
+            <li>Interaction Design</li><li>Information Architecture</li><li>Design Systems</li>
+            <li>Usability Testing</li><li>Product Thinking</li><li>Figma</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="wrap" aria-labelledby="work-h">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Selected work</p>
+        <h2 id="work-h">Three problems, <em>solved end to end.</em></h2>
+      </div>
+
+      <article class="case reveal">
+        <div>
+          <span class="num">01</span>
+          <h3>Thali</h3>
+          <p class="meta">Personal · Product Designer</p>
+        </div>
+        <dl>
+          <div><dt>Problem</dt><dd>Event hosts in India have no way to find, compare, or book a caterer who understands their regional cuisine, so every booking defaults to whoever a relative recommended, at whatever price they quoted.</dd></div>
+          <div><dt>Process</dt><dd>Audited catering platforms and observed real family events. Found restaurant-model interfaces clash with the regional, sequential way Indian events plan food. Restructured the flow around four mental stages instead of eleven linear steps.</dd></div>
+          <div class="key"><dt>Key decision</dt><dd>The host builds the exact menu first. Only then do caterers bid on that menu, dish by dish, so comparisons are truly like-for-like.</dd></div>
+          <div><dt>Outcome</dt><dd>A host can see exactly what they're paying for, vendor by vendor, and decide confidently without a single phone call.</dd></div>
+        </dl>
+      </article>
+
+      <article class="case reveal">
+        <div>
+          <span class="num">02</span>
+          <h3>Intelligent Admin</h3>
+          <p class="meta">Healthcare startup · UI/UX Designer · 4 weeks</p>
+          <span class="tag">Anonymized under NDA</span>
+        </div>
+        <dl>
+          <div><dt>Problem</dt><dd>Hospital administrators lack a unified operational view, making it hard to spot bottlenecks, coordinate departments, and respond quickly.</dd></div>
+          <div><dt>Process</dt><dd>Analyzed existing admin workflows and fragmented information flow, then restructured the experience into a role-based, AI-assisted operations platform.</dd></div>
+          <div class="key"><dt>Key decision</dt><dd>Administrators shouldn't watch dashboards. The system surfaces critical issues so they can run the hospital instead.</dd></div>
+          <div><dt>Outcome</dt><dd>The workflow shifted from reactive monitoring to proactive operations management, guiding admins to the most critical events first.</dd></div>
+        </dl>
+      </article>
+
+      <article class="case reveal">
+        <div>
+          <span class="num">03</span>
+          <h3>True Communication</h3>
+          <p class="meta">SaaS startup · UI/UX Designer · 6 months</p>
+          <span class="tag">Anonymized under NDA</span>
+        </div>
+        <dl>
+          <div><dt>Problem</dt><dd>People juggled multiple apps for related tasks, and communication kept breaking down inside the communities they relied on.</dd></div>
+          <div><dt>Process</dt><dd>Audited the current flow, ran AI-assisted research, mapped the gaps, then restructured around a clearer hierarchy.</dd></div>
+          <div class="key"><dt>Key decision</dt><dd>Instead of a feature-first workflow, I redesigned it to feel user-first.</dd></div>
+          <div><dt>Outcome</dt><dd>Reduced information overload and cut drop-off by 25%.</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <section id="contact" class="wrap contact" aria-labelledby="contact-h">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-h">Let's build something <em>worth using.</em></h2>
+      <div class="links">
+        <a class="btn solid" href="mailto:sivakrishnagrandalla@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/siva-krishna-grandalla-4a06a2215/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/sivakrishnagrandallaUXUI" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Siva Krishna Grandalla</footer>
+
+  <script>
+    // Quiet scroll reveal; content stays visible if IntersectionObserver is unavailable.
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }), { threshold: .12 });
+      els.forEach(el => io.observe(el));
+    } else { els.forEach(el => el.classList.add('in')); }
+  </script>
+</body>
+</html>
